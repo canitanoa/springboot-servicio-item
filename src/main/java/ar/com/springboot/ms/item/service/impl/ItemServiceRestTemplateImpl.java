@@ -14,18 +14,18 @@ import ar.com.springboot.ms.item.models.Item;
 import ar.com.springboot.ms.item.models.Producto;
 import ar.com.springboot.ms.item.service.ItemService;
 
-@Service
-public class ItemServiceImpl implements ItemService{
+@Service("ItemServiceRestTemplateImpl")
+public class ItemServiceRestTemplateImpl implements ItemService{
 
 	@Autowired
-	private RestTemplate clienteRest;
+	private RestTemplate clienteRestTemplate;
 	
 	@Override
 	public List<Item> findAll() {
 		
 		//Consumimos por medio del Cliente RestTemplate la lista de productos del MS Productos
 		List<Producto> productos = Arrays.asList(
-				clienteRest.getForObject("http://localhost:8001/listar", Producto[].class));
+				clienteRestTemplate.getForObject("http://localhost:8001/listar", Producto[].class));
 		
 		//Convertimos la lista de Productos en Items por medio de un stream
 		return productos.stream().map(p -> new Item(p, 1)).collect(Collectors.toList());
@@ -40,7 +40,7 @@ public class ItemServiceImpl implements ItemService{
 		
 		//Consumimos por medio del Cliente RestTemplate el producto por id del MS Productos
 		Producto producto = 
-				clienteRest.getForObject("http://localhost:8001/ver/{id}", Producto.class, pathVariables);
+				clienteRestTemplate.getForObject("http://localhost:8001/ver/{id}", Producto.class, pathVariables);
 		
 		return new Item(producto, cantidad);
 	}

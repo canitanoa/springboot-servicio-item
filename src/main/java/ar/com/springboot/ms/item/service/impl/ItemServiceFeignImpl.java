@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import ar.com.springboot.ms.item.feign.clientes.ProductoFeignClienteRest;
@@ -12,8 +11,8 @@ import ar.com.springboot.ms.item.models.Item;
 import ar.com.springboot.ms.item.models.Producto;
 import ar.com.springboot.ms.item.service.ItemService;
 
-@Service
-@Primary //Indicamos que es la principal, si tenemos dos implementaciones de clientes entonces se toma esta
+@Service("ItemServiceFeignImpl")
+//@Primary //Indicamos que es la principal, si tenemos dos implementaciones de clientes entonces se toma esta
 public class ItemServiceFeignImpl implements ItemService{
 
 	@Autowired
