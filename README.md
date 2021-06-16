@@ -1,9 +1,9 @@
 # springboot-servicio-items
-## Servicio REST creado con SpringBoot documentado con Swagger que consume otro Servicio
+## Servicio REST creado con SpringBoot documentado con Swagger que consume otro Servicio por RestTemplate
 
-Este proyecto es un ejemplo de construcción de una API Rest creada con Springboot 
-La información expuesta por la API es generada por la integracion de este servicio con el de productos
-La API se Auto-documenta con las dependencias de Swagger
+Este proyecto es un ejemplo de construcción de una API Rest creada con Springboot.
+La información expuesta por la API es generada por la implementacion de un Cliente RestTemplate que consume los datos del servicio Productos.
+La API se Auto-documenta con las dependencias de Swagger.r
 
 > Para implementar Swagger en la API:
   - Insertar las dependencias "springfox-swagger2" y "springfox-swagger-ui" en el POM.xml
