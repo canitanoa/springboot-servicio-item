@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "81d41bfe-8343-478c-820a-4c74c438a9d4",
+		"name": "items",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "listar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8002/listar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8002",
+					"path": [
+						"listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/ver/{id}/cantidad/{cantidad}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8002/ver/1/cantidad/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8002",
+					"path": [
+						"ver",
+						"1",
+						"cantidad",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
