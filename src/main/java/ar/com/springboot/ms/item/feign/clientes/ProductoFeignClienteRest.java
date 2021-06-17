@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import ar.com.springboot.ms.item.models.Producto;
 
-@FeignClient(name = "servicio-productos", url = "localhost:8001")
+//@FeignClient(name = "servicio-productos", url = "localhost:8001") // Conf sin integrar con Ribbon
+@FeignClient(name = "servicio-productos") // Conf con Ribbon (para balanceo de carga)
 public interface ProductoFeignClienteRest {
 
 	@GetMapping("/listar")

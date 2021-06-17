@@ -2,6 +2,8 @@ package ar.com.springboot.ms.item;
 
 import java.util.Collections;
 
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,9 +20,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration // Para crear las configuraciones
 @EnableSwagger2 // Para la Auto-Documentacion
 @EnableFeignClients // Habilita los clientes Feign que tengamos en el proyecto y permite inyectarlos en los Servicios del Proyecto
+@RibbonClient("servicio-productos") // Para integrar Fein con Ribbon
 public class AppConfig {
 
-	@Bean("clienteRest")
+	@Bean("clienteRestTemplate")
+	@LoadBalanced //Con esta anitacion se integra con Ribbon para el balanceo de carga
 	public RestTemplate registrarRestTemplate() {
 		return new RestTemplate();
 	}

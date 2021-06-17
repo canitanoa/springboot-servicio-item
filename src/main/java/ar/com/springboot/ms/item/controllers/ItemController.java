@@ -15,8 +15,8 @@ import ar.com.springboot.ms.item.service.ItemService;
 public class ItemController {
 	
 	@Autowired
-//	@Qualifier("ItemServiceRestTemplateImpl") //Imple del Cliente RestTemplate
-	@Qualifier("ItemServiceFeignImpl") //Imple del Cliente Feign
+	@Qualifier("ItemServiceRestTemplateImpl") //Imple del Cliente RestTemplate
+//	@Qualifier("ItemServiceFeignImpl") //Imple del Cliente Feign
 	private ItemService itemService;
 	
 	@GetMapping("/listar")

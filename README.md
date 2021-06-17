@@ -1,8 +1,8 @@
 # springboot-servicio-items
-## Servicio REST creado con SpringBoot documentado con Swagger que consume otro Servicio por RestTemplate y/o Feign
+## Servicio REST creado con SpringBoot documentado con Swagger que consume otro Servicio por RestTemplate y/o Feign implementando un balanceo de carga con Ribbon
 
 Este proyecto es un ejemplo de construcción de una API Rest creada con Springboot.
-La información expuesta por la API es generada por la implementacion de un Cliente RestTemplate y/o Feign que consume los datos del servicio Productos.
+La información expuesta por la API es generada por la implementacion de un Cliente RestTemplate y/o Feign que consume los datos del servicio Productos y esta balanceado con Ribbon.
 La API se Auto-documenta con las dependencias de Swagger
 
 > Para implementar Swagger en la API:
