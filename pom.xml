@@ -64,10 +64,23 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 		
-		<!-- netflix-ribbon		 -->
+		<!-- netflix-ribbon	(para balanceo de carga) -->
+		<!-- Si se configura Eureka, esta dependencia se quita ya que esta incluida en eureka -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.cloud</groupId> -->
+<!-- 			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId> -->
+<!-- 		</dependency> -->
+		
+		<!-- eureka-client (para config con eureka)-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		
+		<!-- hystrix (para la gestion de errores) -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
 		</dependency>
 		
 	</dependencies>
