@@ -71,7 +71,7 @@
 <!-- 			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId> -->
 <!-- 		</dependency> -->
 		
-		<!-- eureka-client (para config con eureka)-->
+		<!-- eureka-client (para config como cliente de eureka)-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -81,6 +81,12 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+		</dependency>
+		
+		<!-- Para config como cliente del Servidor de Configuracion "Config Server"-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 		
 	</dependencies>
