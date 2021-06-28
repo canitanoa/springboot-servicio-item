@@ -12,6 +12,12 @@ La API se Auto-documenta con las dependencias de Swagger
 > Implemantar Eureka:
 - Eureka contiene Ribbon por lo que si se configura, las dependencias de Ribbon se tienen que comentar
 
+> Actuator:
+- Es una dependencia que nos permite actualizar configuraciones properties sin tener que reiniciar el servicio. 
+	Se realiza por medio de un endpoint "/actuator/refresh" y una anotacion @RefreshScope
+	Actualiza la configuracion realizada en las properties en el servidor de configuración 	"config-server" que fueron previamente modificadas y subidas al repositorio de GIT.
+	Esto lo hace sin tener que reiniciar el servicio
+
 > Configurarlo para el Config Server (Servidor de Configuracion):
 - Para que funcione como ciente de Config Server, hay que implementar la dependencia "spring-cloud-starter-config"
 - Crear un archivo de propiedades de arranque "bootstrap.properties" (con la ruta del Config Server) para que ni bien 

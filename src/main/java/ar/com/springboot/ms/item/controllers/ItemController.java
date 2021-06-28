@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import ar.com.springboot.ms.item.models.Item;
 import ar.com.springboot.ms.item.service.ItemService;
 
+@RefreshScope //Nos permite actualizar valores de config sin tener que reiniciar la app
 @RestController
 public class ItemController {
 	
@@ -53,13 +55,12 @@ public class ItemController {
 		json.put("texto", texto);
 		json.put("puerto", port);
 		
-		if(environment.getActiveProfiles().length>0) {
-			if(environment.getActiveProfiles()[0].equals("prod")) {
+//		if(environment.getActiveProfiles().length>0) {
+//			if(environment.getActiveProfiles()[0].equals("prod")) {
 				json.put("autor.nombre", environment.getProperty("configuracion.autor.nombre"));
 				json.put("autor.email", environment.getProperty("configuracion.autor.email"));
-			}
-			
-		}
+//			}
+//		}
 		
 		
 		return new ResponseEntity<>(json, HttpStatus.OK);

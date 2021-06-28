@@ -89,6 +89,11 @@
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 		
+		<!-- Actuator: Para actualizar valores de config sin tener que reiniciar la app -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
