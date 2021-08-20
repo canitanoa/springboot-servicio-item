@@ -1,5 +1,7 @@
 package ar.com.springboot.ms.item.models;
 
+import ar.com.springboot.ms.commons.models.entity.Producto;
+
 public class Item {
 
 	private Producto producto;

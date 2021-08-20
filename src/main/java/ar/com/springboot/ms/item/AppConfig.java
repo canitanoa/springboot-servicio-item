@@ -2,6 +2,8 @@ package ar.com.springboot.ms.item;
 
 import java.util.Collections;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -24,6 +26,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableEurekaClient // Para que sea Cliente de Eureka y pueda registrarse en el server
 @EnableFeignClients // Para crear Clientes REST (Feign) y consumir otros microservicios
 @EnableCircuitBreaker // Para gestionar los errores
+@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 //@RibbonClient("servicio-productos") // Para integrar el Feign (cliente) con Ribbon (balanceador), se quita si esta conf Eureka
 public class AppConfig {
 

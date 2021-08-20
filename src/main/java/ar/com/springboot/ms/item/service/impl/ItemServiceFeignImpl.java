@@ -6,9 +6,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.com.springboot.ms.commons.models.entity.Producto;
 import ar.com.springboot.ms.item.feign.clientes.ProductoFeignClienteRest;
 import ar.com.springboot.ms.item.models.Item;
-import ar.com.springboot.ms.item.models.Producto;
+
 import ar.com.springboot.ms.item.service.ItemService;
 
 @Service("ItemServiceFeignImpl")
@@ -35,6 +36,24 @@ public class ItemServiceFeignImpl implements ItemService{
 		Producto producto = productoFeignClienteRest.detalle(id);
 		
 		return new Item(producto, cantidad);
+	}
+
+	@Override
+	public Producto save(Producto producto) {
+   
+		return productoFeignClienteRest.crear(producto); 
+	}
+
+	@Override
+	public Producto update(Producto producto, Long id) {
+		
+		return productoFeignClienteRest.editar(producto, id);
+	}
+
+	@Override
+	public void deleteById(Long id) {
+
+		productoFeignClienteRest.eliminar(id);
 	}
 
 }

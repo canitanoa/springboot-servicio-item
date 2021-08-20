@@ -94,6 +94,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+		
+		<!-- Para bajarse las dependencias del Proyecto Commons -->
+		<dependency>
+			<groupId>ar.com.springboot.ms.commons</groupId>
+			<artifactId>springboot-servicio-commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
