@@ -25,6 +25,14 @@ La API se Auto-documenta con las dependencias de Swagger
   en Eureka.
   El orden de ejecución de los archivos properties es, 1ro bootstrap.properties y 2do application.properties  
 
+> Implenta Resilience4J: 
+- Como funciona el Patron CircuitBreaker: 
+Se establece una “Ventana Deslizante” en 100 peticiones slidingWindowsSize(100), con un “Umbral de Fallas” de 50 peticiones failureRateThreshold(50). Si la tasa de error sobrepasa ese Umbral, entonces se entra en estado Abierto de CircuitBreaker (Cortocircuito). Y cuando se cumplan las 100 peticiones establecidas en la Ventana Deslizante, todas las posteriores van a retornar error hasta que se cumpla el tiempo establecido para el cortocircuito, configurado en waitDurationInOpenState(60000 ms). 
+Al cumplirse waitDurationInOpenState se pasa a un estado Semi Abierto por 10 peticiones, configurado en permittedNumberOfCallsInHalfOpenState(10). 
+En este caso es el mismo criterio que arriba, si en esas 10 peticiones del estado Semi Abierto, el 50% retorna error entonces se vuelve al estado Abierto, de lo contrario se pasa a estado Cerrado y se procede con normalidad.
+Este mecanismo o patrón de comunicación, sirve para gestionar los errores y evitar caídas en cascada.
+
+
 > Configuraciones:
 - Impl: Importar como proyecto Maven
 - URL: http://localhost:8002/swagger-ui.html

@@ -25,7 +25,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2 // Para la Auto-Documentacion
 @EnableEurekaClient // Para que sea Cliente de Eureka y pueda registrarse en el server
 @EnableFeignClients // Para crear Clientes REST (Feign) y consumir otros microservicios
-@EnableCircuitBreaker // Para gestionar los errores
+//@EnableCircuitBreaker // Para gestionar los errores con Hystrix
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 //@RibbonClient("servicio-productos") // Para integrar el Feign (cliente) con Ribbon (balanceador), se quita si esta conf Eureka
 public class AppConfig {

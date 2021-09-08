@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+//import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import ar.com.springboot.ms.commons.models.entity.Producto;
 import ar.com.springboot.ms.item.models.Item;
@@ -40,15 +43,19 @@ public class ItemController {
 //	@Qualifier("ItemServiceRestTemplateImpl") //Imple del Cliente RestTemplate
 	@Qualifier("ItemServiceFeignImpl") // Imple del Cliente Feign
 	private ItemService itemService;
-
+	
+	//Para impl Resilience4J con CircuitBreaker
+	@Autowired
+	private CircuitBreakerFactory circuitBreakerFactory;
+	
 	// Obtenemos el ambiente
 	@Autowired
 	private Environment environment;
 
 	// Obtener valores de properties de config-server
-	@Value("${configuracion.texto}")
+//	@Value("${configuracion.texto}")
 	private String texto;
-	@Value("${server.port}")
+//	@Value("${server.port}")
 	private String port;
 
 	@GetMapping("/obtener-config")
@@ -71,7 +78,10 @@ public class ItemController {
 	}
 
 	@GetMapping("/listar")
-	public List<Item> listar() {
+	public List<Item> listar(@RequestParam(name="nombre", required = false) String nombre, @RequestHeader(name="token-request", required = false) String tokenRequest) {
+		System.out.println("nombre: " + nombre);
+		System.out.println("token-request: " + tokenRequest);
+		
 		return itemService.findAll();
 	}
 
@@ -93,21 +103,32 @@ public class ItemController {
 		itemService.deleteById(id);
 	}
 	
-	@HystrixCommand(fallbackMethod = "metodoTolerFallo")
+//	@HystrixCommand(fallbackMethod = "metodoTolerFallo")
 	@GetMapping("/ver/{id}/cantidad/{cantidad}")
 	public Item detalle(@PathVariable Long id, @PathVariable Integer cantidad) {
-		return itemService.findById(id, cantidad);
+		// Para Hystrix
+		// return itemService.findById(id, cantidad);
+		
+		// Para Resilience4J de forma programatica con lamda
+		return circuitBreakerFactory.create("items").run(
+				() -> itemService.findById(id, cantidad),
+				e -> metodoTolerFallo(id, cantidad, e)
+				);
+		
+		
 	}
 
-	public Item metodoTolerFallo(Long id, Integer cantidad) {
-//		Item item = new Item();
-//		Producto producto = new Producto();
-//		
-//		producto.setId(id);
-//		producto.setPrecio(Double.valueOf(0));
-//		
-//		return item;
-		return new Item();
+	public Item metodoTolerFallo(Long id, Integer cantidad, Throwable e) {
+		
+		log.info("metodoTolerFallo: " + e.getMessage());
+		Item item = new Item();
+		Producto producto = new Producto();
+		
+		producto.setId(id);
+		producto.setPrecio(Double.valueOf(0));
+		
+		return item;
+//		return new Item();
 	}
 
 }

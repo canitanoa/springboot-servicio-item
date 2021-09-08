@@ -1,5 +1,7 @@
 package ar.com.springboot.ms.item.models;
 
+import org.apache.commons.lang.StringUtils;
+
 import ar.com.springboot.ms.commons.models.entity.Producto;
 
 public class Item {
@@ -32,6 +34,14 @@ public class Item {
 	}
 
 	public Double getTotal() {
+		Double tot = 0.0;
+		
+		if (producto == null || cantidad == null)
+		{
+			return tot;
+		}else {
+			
+		}
 		return producto.getPrecio() * cantidad.doubleValue();
 	}
 

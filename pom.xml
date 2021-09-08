@@ -5,7 +5,10 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.11.RELEASE</version>
+		<!-- Para trabajarlo con Hystrix -->
+<!-- 		<version>2.2.11.RELEASE</version>  -->
+		<!-- Para trabajarlo con Resilience4j -->
+		<version>2.5.3</version> 
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ar.com.springboot.ms.item</groupId>
@@ -16,7 +19,8 @@
 	
 	<properties>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Hoxton.SR11</spring-cloud.version>
+		<!-- <spring-cloud.version>Hoxton.SR12</spring-cloud.version> --> <!-- Para trabajarlo con Hystrix -->
+		<spring-cloud.version>2020.0.3</spring-cloud.version><!-- Para trabajarlo con Resilience4j -->
 	</properties>
 	
 	<dependencies>
@@ -77,13 +81,24 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 		
-		<!-- hystrix (para la gestion de errores) -->
+		<!-- hystrix (Para la gestion de errores) compatible con <version>2.2.11.RELEASE</version>-->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.cloud</groupId> -->
+<!-- 			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId> -->
+<!-- 		</dependency> -->
+
+		<!-- Resilience4J (Para la gestion de errores con CircuitBreaker) -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+			<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
 		</dependency>
 		
-		<!-- Para config como cliente del Servidor de Configuracion "Config Server"-->
+		<!-- Para trabajar con el Servidor de Configuracion "Config Server" -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter</artifactId>
+		</dependency>
+		<!-- Para configurar como cliente del Servidor de Configuracion "Config Server" -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
@@ -101,6 +116,10 @@
 			<artifactId>springboot-servicio-commons</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+
+		
+
 		
 	</dependencies>
 
